@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chatgpt Design Master Prompt System - thehassan.web</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;550;600;650&display=swap" rel="stylesheet">
+    <style>
+        /* Reset with personality */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #111;
+            background-color: #fff;
+            line-height: 1.5;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+        
+        /* Custom spacing system */
+        .container {
+            width: 100%;
+            max-width: 68rem;
+            margin: 0 auto;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        
+        /* Typography with human touch */
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.025em;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1.25rem;
+        }
+        
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            margin-bottom: 2.5rem;
+        }
+        
+        h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        p {
+            margin-bottom: 1.25rem;
+            color: #444;
+            font-size: 1.0625rem;
+        }
+        
+        /* Hero section - balanced and spacious */
+        .hero {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        @media (min-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr 1fr;
+                padding-top: 7rem;
+                padding-bottom: 7rem;
+                gap: 4rem;
+            }
+        }
+        
+        .hero-content {
+            max-width: 32rem;
+        }
+        
+        .hero-description {
+            font-size: 1.125rem;
+            margin-bottom: 2.5rem;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* Price with emphasis */
+        .price {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #1a5c4f;
+            margin-bottom: 2rem;
+            display: block;
+        }
+        
+        /* Button that feels clickable */
+        .btn {
+            display: inline-block;
+            background-color: #1a5c4f;
+            color: #fff;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.0625rem;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(26, 92, 79, 0.15);
+        }
+        
+        .btn:hover {
+            background-color: #14483e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 92, 79, 0.2);
+        }
+        
+        .btn-instruction {
+            display: block;
+            margin-top: 0.75rem;
+            font-size: 0.8125rem;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        /* Ebook mockup - realistic but simple */
+        .ebook-mockup {
+            position: relative;
+            width: 100%;
+            max-width: 26rem;
+            margin: 0 auto;
+        }
+        
+        .mockup-container {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05), 
+                        0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .mockup-page {
+            background-color: #fafafa;
+            height: auto;
+            min-height: 20rem;
+            border-radius: 0.375rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .ebook-image {
+            width: 100%;
+            height: auto;
+            max-height: 28rem;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .mockup-shadow {
+            position: absolute;
+            bottom: -0.5rem;
+            left: 10%;
+            width: 80%;
+            height: 1rem;
+            background-color: rgba(0, 0, 0, 0.02);
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        /* Details section */
+        .details {
+            background-color: #f9f9f9;
+            padding: 5rem 0;
+        }
+        
+        .bullet-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 640px) {
+            .bullet-list {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2.5rem 3rem;
+            }
+        }
+        
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0;
+        }
+        
+        .bullet-icon {
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: #1a5c4f;
+            border-radius: 50%;
+            margin-right: 1rem;
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+            opacity: 0.8;
+        }
+        
+        /* How it works */
+        .steps-section {
+            padding: 5rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 640px) {
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .steps {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        .step {
+            text-align: left;
+            padding: 2rem 1.5rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-0.25rem);
+        }
+        
+        .step-number {
+            display: inline-flex;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: #e8f4f1;
+            color: #1a5c4f;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            font-size: 1.125rem;
+        }
+        
+        /* About section */
+        .about-section {
+            padding: 5rem 0;
+        }
+        
+        .about-content {
+            max-width: 48rem;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 0 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+        }
+        
+        .instagram-link {
+            color: #1a5c4f;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            font-size: 1.0625rem;
+        }
+        
+        .instagram-link:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            font-size: 0.875rem;
+            color: #777;
+            margin-top: 1rem;
+        }
+        
+        /* Section spacing */
+        section {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+            
+            section {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+            }
+            
+            .hero {
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+                gap: 3rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.75rem;
+                margin-bottom: 2rem;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+                padding: 1rem 1.5rem;
+            }
+            
+            .price {
+                font-size: 2rem;
+            }
+            
+            .mockup-container {
+                padding: 1rem;
+            }
+        }
+        
+        /* Print-friendly styles */
+        @media print {
+            .btn {
+                display: none;
+            }
+        }
+        
+        /* Focus styles for accessibility */
+        *:focus {
+            outline: 2px solid #1a5c4f;
+            outline-offset: 2px;
+        }
+        
+        /* Selection color */
+        ::selection {
+            background-color: rgba(26, 92, 79, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero container">
+        <div class="hero-content">
+            <h1>chatgpt Design Master Prompt System</h1>
+            <p class="hero-description">A 17-page prompt guide for creators who need clean, professional AI-generated thumbnails, logos, product mockups and branding visuals.</p>
+            
+            <span class="price">₹29</span>
+            
+            <a href="https://ig.me/m/thehassan.web?text=I%20want%20to%20buy" class="btn">Buy Now</a>
+            <span class="btn-instruction">Opens Instagram. If the message isn't pre-filled, type: I want to buy</span>
+        </div>
+        
+        <div class="ebook-mockup">
+            <div class="mockup-container">
+                <div class="mockup-page">
+                    <!-- Replace with your actual image path -->
+                    <img src="/ChatGPT Image Feb 7, 2026, 05_09_26 PM.png" 
+                         alt="AI Design Master Prompt System Ebook Preview" 
+                         class="ebook-image">
+                </div>
+            </div>
+            <div class="mockup-shadow"></div>
+        </div>
+    </section>
+    
+    <!-- Details Section -->
+    <section class="details">
+        <div class="container">
+            <h2>What's Inside</h2>
+            
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <div>
+                        <h3>Thumbnail Prompt Systems</h3>
+                        <p>Two approaches: reference-based redesign and fresh professional creation.</p>
+                    </div>
+                </li>
+                
+                <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <div>
+                        <h3>Logo Design Prompt Systems</h3>
+                        <p>Structured prompts for balanced, memorable logos without artificial styling.</p>
+                    </div>
+                </li>
+                
+                <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <div>
+                        <h3>Product Mockup Prompt Systems</h3>
+                        <p>Generate realistic product visuals that look professionally photographed.</p>
+                    </div>
+                </li>
+                
+                <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <div>
+                        <h3>Poster & Branding Prompts</h3>
+                        <p>Cohesive visual identity prompts for consistent brand presentation.</p>
+                    </div>
+                </li>
+                
+                <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <div>
+                        <h3>Structured Copy-Paste Format</h3>
+                        <p>Ready-to-use prompt templates that work immediately.</p>
+                    </div>
+                </li>
+                
+                <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <div>
+                        <h3>Beginner Friendly</h3>
+                        <p>No technical expertise needed. Straightforward guidance throughout.</p>
+                    </div>
+                </li>
+                
+                <li class="bullet-item">
+                    <span class="bullet-icon"></span>
+                    <div>
+                        <h3>Focused on Natural Output</h3>
+                        <p>Optimized to reduce artificial AI styling and maintain clean, human-designed aesthetics.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section container">
+        <h2>About This Guide</h2>
+        
+        <div class="about-content">
+            <p>This guide is for creators who want structure instead of random experimentation. There's no magic here—just practical systems that work.</p>
+            
+            <p>Each section includes two prompt formats: one for when you have reference material to work from, and another for when you're starting completely fresh.</p>
+            
+            <p>All prompts are designed to reduce that artificial AI look and maintain clean, professional aesthetics. I use these systems myself for client work, and they consistently deliver better results than generic prompting.</p>
+            
+            <p>No exaggerated claims. Just tools that can help you create better visuals with less frustration.</p>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="steps-section">
+        <div class="container">
+            <h2>How It Works</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Click Buy Now</h3>
+                    <p>Click the button above to begin your purchase.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Instagram DM Opens</h3>
+                    <p>You'll be redirected to Instagram to send a direct message.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Complete ₹29 Payment</h3>
+                    <p>Send the payment via UPI or other available method.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Receive Your PDF</h3>
+                    <p>Get instant access to the 17-page prompt guide in PDF format.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <a href="https://instagram.com/thehassan.web" class="instagram-link">Instagram: @thehassan.web</a>
+            <p class="copyright">© <span id="current-year"></span> thehassan.web</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Simple, clean JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Make buttons feel responsive
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('mousedown', () => {
+                    button.style.transform = 'translateY(0)';
+                });
+                
+                button.addEventListener('mouseup', () => {
+                    button.style.transform = 'translateY(-1px)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
